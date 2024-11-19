@@ -1,0 +1,15 @@
+[
+    {
+      "relation": [
+        "delegate_permission/common.handle_all_urls"
+      ],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.app.mulyankan",
+        "sha256_cert_fingerprints": [
+          "A1:95:96:C6:D7:7D:5D:7E:56:69:53:C3:C1:1B:47:FB:BE:5E:31:EB:41:1A:5C:DF:84:91:E9:68:FC:7B:C6:93",
+          "B9:A4:10:77:FA:40:DF:6E:20:EA:C9:BC:49:B5:71:E8:A2:FD:0D:DD:3D:19:0A:C0:CA:C9:FF:D0:68:1B:51:5B"
+        ]
+      }
+    }
+  ]
