@@ -154,6 +154,28 @@
         </div>
     </footer>
     
+    <script>
+        const getMobileOS = () => {
+        const ua = navigator.userAgent
+        if (/android/i.test(ua)) {
+            return "Android"
+        }
+        else if (/iPad|iPhone|iPod/.test(ua)){
+            return "iOS"
+        }
+        return "Other"
+        }
+
+        const os = getMobileOS()
+        if (os === 'Android') {
+            window.location.href= "market://details?id=com.app.mulyankan";
+            setTimeout(function() {
+                window.location.href = "https://play.google.com/store/apps/details?id=com.app.mulyankan";
+            }, 500);
+        } else if (os === 'iOS') {
+            window.location.href= "https://apps.apple.com/de/app/6446269812"
+        }
+    </script>
 
     <!-- Scroll reveal -->
     <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
