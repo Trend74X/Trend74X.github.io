@@ -155,33 +155,41 @@
     </footer>
     
     <script>
-        const getMobileOS = () => {
-            const ua = navigator.userAgent
-            if (/android/i.test(ua)) {
-                return "Android"
+        // Function to detect the mobile OS and handle the app opening logic
+        function openAppBasedOnOS() {
+            const getMobileOS = () => {
+                const ua = navigator.userAgent;
+                if (/android/i.test(ua)) {
+                    return "Android";
+                } else if (/iPad|iPhone|iPod/.test(ua)) {
+                    return "iOS";
+                }
+                return "Other";
+            };
+    
+            const os = getMobileOS();
+            
+            if (os === 'Android') {
+                const appLink = "com.app.mulyankan";
+                window.location.href = "intent://#Intent;package=" + appLink + ";scheme=myapp://;end";
+                // Uncomment the line below for fallback to Play Store if app isn't installed
+                // window.location.href = "market://details?id=com.app.mulyankan";
+                
+                setTimeout(function() {
+                    window.location.href = "https://play.google.com/store/apps/details?id=com.app.mulyankan";
+                }, 1000); // Fallback after 1 second if the app isn't opened
+            } else if (os === 'iOS') {
+                const appStoreLink = "https://apps.apple.com/de/app/6446269812";
+                window.location.href = "mulyan://"; // Try to open the app via custom URI
+                
+                setTimeout(function() {
+                    window.location.href = appStoreLink; // Fallback to App Store after 1 second
+                }, 1000);
             }
-            else if (/iPad|iPhone|iPod/.test(ua)){
-                return "iOS"
-            }
-            return "Other"
         }
-
-        const os = getMobileOS()
-        if (os === 'Android') {
-            const appLink = "com.app.mulyankan"
-            window.location.href = "intent://#Intent;package=" + appLink + ";scheme=myapp://;end";
-            // window.location.href= "market://details?id=com.app.mulyankan";
-            setTimeout(function() {
-                window.location.href = "https://play.google.com/store/apps/details?id=com.app.mulyankan";
-            }, 1000);
-        } else if (os === 'iOS') {
-            const appStoreLink = "https://apps.apple.com/de/app/6446269812";
-            // window.location.href= "https://apps.apple.com/de/app/6446269812"
-            window.location.href = "mulyan://";
-            setTimeout(function() {
-                window.location.href = appStoreLink;
-            }, 1000); 
-        }
+    
+        // Call the function on page load
+        window.onload = openAppBasedOnOS; // Trigger the function when the page is loaded
     </script>
 
     <!-- Scroll reveal -->
