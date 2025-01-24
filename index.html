@@ -154,49 +154,41 @@
         </div>
     </footer>
     
-    <script>
-        // Function to detect the mobile OS and handle the app opening logic
-        function openAppBasedOnOS() {
-            const getMobileOS = () => {
-                const ua = navigator.userAgent;
-                if (/android/i.test(ua)) {
-                    return "Android";
-                } else if (/iPad|iPhone|iPod/.test(ua)) {
-                    return "iOS";
-                }
-                return "Other";
-            };
-    
-            const os = getMobileOS();
-            
-            if (os === 'Android') {
-                const appLink = "com.app.mulyankan";
-                window.location.href = "intent://#Intent;package=" + appLink + ";scheme=mulyan://;end";
-                // Uncomment the line below for fallback to Play Store if app isn't installed
-                // window.location.href = "market://details?id=com.app.mulyankan";
-                
-                setTimeout(function() {
-                    window.location.href = "https://play.google.com/store/apps/details?id=com.app.mulyankan";
-                }, 1000); // Fallback after 1 second if the app isn't opened
-            } else if (os === 'iOS') {
-                const appStoreLink = "https://apps.apple.com/de/app/6446269812";
-                window.location.href = "mulyan://"; // Try to open the app via custom URI
-                
-                setTimeout(function() {
-                    window.location.href = appStoreLink; // Fallback to App Store after 1 second
-                }, 1000);
-            }
-        }
-    
-        // Call the function on page load
-        window.onload = openAppBasedOnOS; // Trigger the function when the page is loaded
-    </script>
-
     <!-- Scroll reveal -->
     <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
 
     <!-- The compiled JavaScript file -->
     <script src="js/production.js"></script>
+
+    <script>
+        // Fetch JSON data and display it dynamically
+        fetch('data/apps.json') // Adjust the path to your JSON file
+            .then(response => response.json())
+            .then(data => {
+                const app = document.getElementById('app');
+                data.apps.forEach(appData => {
+                    const appSection = `
+                        <div class="container--lg pt1 pb1">
+                            <div class="grid-row grid-row--center">
+                                <div class="grid-column mt3 mb2 order-2">
+                                    <div class="border--bottom pb2 mb2">
+                                        <h2>${appData.name}</h2>
+                                        <p>${appData.description}</p>
+                                    </div>
+                                    <p class="italic text--gray mb1">${appData.note}</p>
+                                </div>
+                                <div class="grid-column span-1"></div>
+                                <div class="grid-column mt3 mb2 order-1 reveal-on-scroll is-revealing">
+                                    <img src="${appData.image}" alt="${appData.alt}">
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    app.innerHTML += appSection;
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
 
     </body>
 </html>
